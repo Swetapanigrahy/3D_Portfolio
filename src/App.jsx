@@ -1,19 +1,17 @@
 // App.jsx
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import Hero from './sections/Hero.jsx'
 
 function App() {
-  const [time, setTime] = useState(new Date());
-
-  useEffect(() => {
-    const timer = setInterval(() => setTime(new Date()), 1000);
-    return () => clearInterval(timer);
-  }, []);
+ 
 
   return (
     <div>
-      <h1>WELCOME TO MY 3D-PORTFOLIO </h1>
+      <Hero/> 
+      
     </div>
   );
 }
+
 
 export default App;
