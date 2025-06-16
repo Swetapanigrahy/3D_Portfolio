@@ -1,19 +1,19 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 
-// import AnimatedCounter from "../components/AnimatedCounter";
-// import Button from "../components/Button";
+import AnimatedCounter from "../components/AnimatedCounter";
+import Button from "../components/Button";
 import { words } from "../constants";
-// import HeroExperience from "../components/models/hero_models/HeroExperience";
+import HeroExperience from "../components/HeroModels/HeroExperience";
 
 const Hero = () => {
-//   useGSAP(() => {
-//     gsap.fromTo(
-//       ".hero-text h1",
-//       { y: 50, opacity: 0 },
-//       { y: 0, opacity: 1, stagger: 0.2, duration: 1, ease: "power2.inOut" }
-//     );
-//   });
+  useGSAP(() => {
+    gsap.fromTo(
+      ".hero-text h1",
+      { y: 50, opacity: 0 },
+      { y: 0, opacity: 1, stagger: 0.2, duration: 1, ease: "power2.inOut" }
+    );
+  });
 
   return (
     <section id="hero" className="relative overflow-hidden">
@@ -55,23 +55,23 @@ const Hero = () => {
               code.
             </p>
 
-            {/* <Button
+            <Button
               text="See My Work"
               className="md:w-80 md:h-16 w-60 h-12"
               id="counter"
-            /> */}
+            />
           </div>
         </header>
 
         {/* RIGHT: 3D Model or Visual */}
-        {/* <figure>
+        <figure>
           <div className="hero-3d-layout">
             <HeroExperience />
           </div>
-        </figure> */}
+        </figure>
       </div>
 
-      {/* <AnimatedCounter /> */}
+      <AnimatedCounter />
     </section>
   );
 };
