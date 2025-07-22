@@ -1,5 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Mona+Sans:ital,wght@0,200..900;1,200..900&display=swap");
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
   --gradient: radial-gradient(circle, #e5e5e5 0%, #fff 100%);
@@ -122,7 +124,7 @@ section {
     }
 
     nav.desktop {
-      @apply hidden lg:flex items-center;
+      @apply hidden lg:flex items-center ml-16; /* Added ml-16 to move the nav links to the right */
 
       ul {
         @apply flex space-x-8;
@@ -469,4 +471,153 @@ section {
 
 .card:hover::before {
   opacity: 1;
+}
+
+.bg-skills-gradient {
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.8) 0%,
+    rgba(0, 0, 0, 1) 100%
+  );
+}
+
+.clip-path-custom {
+  clip-path: polygon(0 0, 100% 0, 100% 95%, 0 100%);
+}
+
+/* Contact Form Styles */
+.grid-12-cols {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 2rem;
+}
+
+.card-border {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+}
+
+form label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #d9ecff;
+  font-weight: 500;
+}
+
+form input,
+form textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0.5rem;
+  background: rgba(255, 255, 255, 0.05);
+  color: #fff;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+form input:focus,
+form textarea:focus {
+  outline: none;
+  border-color: #cd7c2e;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.cta-button {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 1rem 2rem;
+  border-radius: 0.5rem;
+  background: white;
+  color: #000;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  overflow: hidden;
+  width: 100%;
+  cursor: pointer;
+}
+
+.cta-button .bg-circle {
+  position: absolute;
+  width: 200%;
+  aspect-ratio: 1;
+  background: radial-gradient(
+    circle,
+    rgba(0, 0, 0, 0.1) 0%,
+    transparent 70%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.cta-button:hover .bg-circle {
+  opacity: 1;
+}
+
+.cta-button .arrow-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cta-button .arrow-wrapper img {
+  width: 1.5rem;
+  height: 1.5rem;
+  transition: transform 0.3s ease;
+}
+
+.cta-button:hover .arrow-wrapper img {
+  transform: translateX(0.25rem);
+}
+
+/* Experience Section Styles */
+.experience-timeline {
+  @apply max-w-6xl mx-auto;
+}
+
+.exp-card {
+  @apply opacity-0;
+}
+
+.exp-card:hover {
+  transform: translateY(-5px);
+  transition: transform 0.3s ease;
+}
+
+/* Timeline connector animation */
+.timeline-connector {
+  @apply opacity-80;
+}
+
+.timeline-connector::before,
+.timeline-connector::after {
+  content: "";
+  @apply absolute w-3 h-3 bg-blue-500 rounded-full left-1/2 transform -translate-x-1/2;
+}
+
+.timeline-connector::before {
+  @apply top-0;
+}
+
+.timeline-connector::after {
+  @apply bottom-0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .exp-card {
+    @apply flex-col !important;
+  }
+
+  .timeline-connector {
+    @apply left-8;
+  }
+
+  .exp-card .absolute {
+    @apply left-8;
+  }
 }

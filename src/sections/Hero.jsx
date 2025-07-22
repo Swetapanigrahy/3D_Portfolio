@@ -1,7 +1,6 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 
-import AnimatedCounter from "../components/AnimatedCounter";
 import Button from "../components/Button";
 import { words } from "../constants";
 import HeroExperience from "../components/HeroModels/HeroExperience";
@@ -16,7 +15,7 @@ const Hero = () => {
   });
 
   return (
-    <section id="hero" className="relative overflow-hidden">
+    <section id="home" className="relative overflow-hidden">
       <div className="absolute top-0 left-0 z-10">
         <img src="/images/bg.png" alt="" />
       </div>
@@ -26,6 +25,9 @@ const Hero = () => {
         <header className="flex flex-col justify-center md:w-full w-screen md:px-20 px-5">
           <div className="flex flex-col gap-7">
             <div className="hero-text">
+              <h1 className="text-3xl md:text-5xl font-bold mb-3 bg-gradient-to-r from-purple-400 to-pink-600 text-transparent bg-clip-text">
+                Hi, I'm SWETA
+              </h1>
               <h1>
                 Shaping
                 <span className="slide">
@@ -50,16 +52,11 @@ const Hero = () => {
               <h1>that Deliver Results</h1>
             </div>
 
-            <p className="text-white-50 md:text-xl relative z-10 pointer-events-none">
-              Hi, I’m Sweta, a developer based in Croatia with a passion for
-              code.
-            </p>
+            {/* <p className="text-white-50 md:text-xl relative z-10 pointer-events-none">
+              A passionate developer crafting innovative digital experiences
+            </p> */}
 
-            <Button
-              text="See My Work"
-              className="md:w-80 md:h-16 w-60 h-12"
-              id="counter"
-            />
+            <Button text="See My Work" className="md:w-80 md:h-16 w-60 h-12" />
           </div>
         </header>
 
@@ -70,8 +67,6 @@ const Hero = () => {
           </div>
         </figure>
       </div>
-
-      <AnimatedCounter />
     </section>
   );
 };

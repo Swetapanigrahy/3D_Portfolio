@@ -1,149 +1,114 @@
-import gsap from "gsap";
-import { useGSAP } from "@gsap/react";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
+import React from "react";
+import { motion } from "framer-motion";
 import { expCards } from "../constants";
-import TitleHeader from "../components/TitleHeader";
-import GlowCard from "./GlowCard";
-
-gsap.registerPlugin(ScrollTrigger);
 
 const Experience = () => {
-  useGSAP(() => {
-    // Loop through each timeline card and animate them in
-    // as the user scrolls to each card
-    gsap.utils.toArray(".timeline-card").forEach((card) => {
-      // Animate the card coming in from the left
-      // and fade in
-      gsap.from(card, {
-        // Move the card in from the left
-        xPercent: -100,
-        // Make the card invisible at the start
-        opacity: 0,
-        // Set the origin of the animation to the left side of the card
-        transformOrigin: "left left",
-        // Animate over 1 second
-        duration: 1,
-        // Use a power2 ease-in-out curve
-        ease: "power2.inOut",
-        // Trigger the animation when the card is 80% of the way down the screen
-        scrollTrigger: {
-          // The card is the trigger element
-          trigger: card,
-          // Trigger the animation when the card is 80% down the screen
-          start: "top 80%",
-        },
-      });
-    });
-
-    // Animate the timeline height as the user scrolls
-    // from the top of the timeline to 70% down the screen
-    // The timeline height should scale down from 1 to 0
-    // as the user scrolls up the screen
-    gsap.to(".timeline", {
-      // Set the origin of the animation to the bottom of the timeline
-      transformOrigin: "bottom bottom",
-      // Animate the timeline height over 1 second
-      ease: "power1.inOut",
-      // Trigger the animation when the timeline is at the top of the screen
-      // and end it when the timeline is at 70% down the screen
-      scrollTrigger: {
-        trigger: ".timeline",
-        start: "top center",
-        end: "70% center",
-        // Update the animation as the user scrolls
-        onUpdate: (self) => {
-          // Scale the timeline height as the user scrolls
-          // from 1 to 0 as the user scrolls up the screen
-          gsap.to(".timeline", {
-            scaleY: 1 - self.progress,
-          });
-        },
-      },
-    });
-
-    // Loop through each expText element and animate them in
-    // as the user scrolls to each text element
-    gsap.utils.toArray(".expText").forEach((text) => {
-      // Animate the text opacity from 0 to 1
-      // and move it from the left to its final position
-      // over 1 second with a power2 ease-in-out curve
-      gsap.from(text, {
-        // Set the opacity of the text to 0
-        opacity: 0,
-        // Move the text from the left to its final position
-        // (xPercent: 0 means the text is at its final position)
-        xPercent: 0,
-        // Animate over 1 second
-        duration: 1,
-        // Use a power2 ease-in-out curve
-        ease: "power2.inOut",
-        // Trigger the animation when the text is 60% down the screen
-        scrollTrigger: {
-          // The text is the trigger element
-          trigger: text,
-          // Trigger the animation when the text is 60% down the screen
-          start: "top 60%",
-        },
-      });
-    }, "<"); // position parameter - insert at the start of the animation
-  }, []);
-
   return (
-    <section
-      id="experience"
-      className="flex-center md:mt-40 mt-20 section-padding xl:px-0"
-    >
-      <div className="w-full h-full md:px-20 px-5">
-        <TitleHeader
-          title="Professional Work Experience"
-          sub="💼 My Career Overview"
-        />
-        <div className="mt-32 relative">
-          <div className="relative z-50 xl:space-y-32 space-y-10">
-            {expCards.map((card) => (
-              <div key={card.title} className="exp-card-wrapper">
-                <div className="xl:w-2/6">
-                  <GlowCard card={card}>
+    <section id="experience" className="relative min-h-screen py-20 sm:py-32">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="text-center mb-24"
+        >
+          <span className="text-white/70 uppercase tracking-wider text-sm font-medium">
+            My Professional Journey
+          </span>
+          <h2 className="text-6xl font-bold mt-4 mb-6 bg-gradient-to-r from-white via-white/90 to-white/80 bg-clip-text text-transparent">
+            Experience
+          </h2>
+        </motion.div>
+
+        {/* Experience Cards */}
+        <div className="space-y-12">
+          {expCards.map((card, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: index * 0.2 }}
+              className="relative"
+            >
+              {/* Card */}
+              <div className="group relative bg-[#1a1a1a] rounded-2xl p-1 hover:bg-gradient-to-r hover:from-white/20 hover:via-white/5 hover:to-transparent transition-all duration-300">
+                <div className="relative bg-[#0f0f0f] rounded-xl p-8 md:p-10">
+                  <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-white/[0.08] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-xl" />
+
+                  {/* Content Grid */}
+                  <div className="relative grid md:grid-cols-[1fr,2fr] gap-8 items-start">
+                    {/* Left Column - Company Info */}
                     <div>
-                      <img src={card.imgPath} alt="exp-img" />
-                    </div>
-                  </GlowCard>
-                </div>
-                <div className="xl:w-4/6">
-                  <div className="flex items-start">
-                    <div className="timeline-wrapper">
-                      <div className="timeline" />
-                      <div className="gradient-line w-1 h-full" />
-                    </div>
-                    <div className="expText flex xl:gap-20 md:gap-10 gap-5 relative z-20">
-                      <div className="timeline-logo">
-                        <img src={card.logoPath} alt="logo" />
+                      {/* Logo Container */}
+                      <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-white/5 p-2 ring-1 ring-white/10 mb-6">
+                        <img
+                          src={card.logoPath}
+                          alt={card.title}
+                          className="w-12 h-12 object-contain"
+                        />
                       </div>
-                      <div>
-                        <h1 className="font-semibold text-3xl">{card.title}</h1>
-                        <p className="my-5 text-white-50">
-                          🗓️&nbsp;{card.date}
+
+                      {/* Company & Duration */}
+                      <h3 className="text-2xl font-bold text-white mb-2">
+                        {card.title}
+                      </h3>
+                      <p className="text-white/50 font-medium">{card.date}</p>
+
+                      {/* Tags */}
+                      <div className="flex flex-wrap gap-2 mt-4">
+                        <span className="px-3 py-1 text-sm bg-white/5 text-white/70 rounded-full border border-white/10">
+                          Frontend
+                        </span>
+                        <span className="px-3 py-1 text-sm bg-white/5 text-white/70 rounded-full border border-white/10">
+                          Development
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Right Column - Experience Details */}
+                    <div className="space-y-6">
+                      {/* Description */}
+                      <div className="prose prose-invert">
+                        <p className="text-white/70 leading-relaxed text-lg">
+                          {card.review}
                         </p>
-                        <p className="text-[#839CB5] italic">
-                          Responsibilities
-                        </p>
-                        <ul className="list-disc ms-5 mt-5 flex flex-col gap-5 text-white-50">
-                          {card.responsibilities.map(
-                            (responsibility, index) => (
-                              <li key={index} className="text-lg">
-                                {responsibility}
-                              </li>
-                            )
-                          )}
-                        </ul>
+                      </div>
+
+                      {/* Responsibilities */}
+                      <div className="space-y-4">
+                        <h4 className="text-white font-semibold flex items-center gap-3">
+                          <span className="h-px w-6 bg-white/20" />
+                          Key Responsibilities
+                        </h4>
+                        <div className="grid gap-3">
+                          {card.responsibilities.map((item, idx) => (
+                            <div
+                              key={idx}
+                              className="group/item flex items-start gap-4 relative pl-4"
+                            >
+                              <div className="absolute left-0 top-[0.6rem] w-2 h-2 rounded-full bg-white/20 group-hover/item:bg-white/40 transition-colors" />
+                              <p className="text-white/60 group-hover/item:text-white/80 transition-colors">
+                                {item}
+                              </p>
+                            </div>
+                          ))}
+                        </div>
                       </div>
                     </div>
                   </div>
+
+                  {/* Hover Effects */}
+                  <div className="absolute inset-px bg-gradient-to-r from-white/0 via-white/5 to-white/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-xl pointer-events-none" />
                 </div>
               </div>
-            ))}
-          </div>
+
+              {/* Connector Line */}
+              {index !== expCards.length - 1 && (
+                <div className="absolute left-1/2 bottom-0 w-px h-12 bg-gradient-to-b from-white/10 to-transparent transform translate-y-full" />
+              )}
+            </motion.div>
+          ))}
         </div>
       </div>
     </section>
