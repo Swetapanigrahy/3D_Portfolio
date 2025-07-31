@@ -17,7 +17,7 @@ const Hero = () => {
   return (
     <section id="home" className="relative overflow-hidden">
       <div className="absolute top-0 left-0 z-10">
-        <img src="/images/bg.png" alt="" />
+        <img src="/images/bg.png" alt="" className="w-full h-auto" />
       </div>
 
       <div className="hero-layout">
@@ -39,7 +39,7 @@ const Hero = () => {
                       >
                         <img
                           src={word.imgPath}
-                          alt="person"
+                          alt={word.text}
                           className="xl:size-12 md:size-10 size-7 md:p-2 p-1 rounded-full bg-white-50"
                         />
                         <span>{word.text}</span>
@@ -52,11 +52,18 @@ const Hero = () => {
               <h1>that Deliver Results</h1>
             </div>
 
-            {/* <p className="text-white-50 md:text-xl relative z-10 pointer-events-none">
-              A passionate developer crafting innovative digital experiences
-            </p> */}
-
-            <Button text="See My Work" className="md:w-80 md:h-16 w-60 h-12" />
+            <div className="relative z-10">
+              <Button 
+                text="See My Work" 
+                className="md:w-80 md:h-16 w-60 h-12"
+                onClick={() => {
+                  const projectsSection = document.getElementById('work');
+                  if (projectsSection) {
+                    projectsSection.scrollIntoView({ behavior: 'smooth' });
+                  }
+                }}
+              />
+            </div>
           </div>
         </header>
 

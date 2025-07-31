@@ -39,20 +39,21 @@ const NavBar = () => {
   }, []);
 
   return (
-    <header className={`fixed w-full z-50 transition-all duration-500 ${scrolled ? 'bg-black/80 backdrop-blur-md py-2 shadow-lg' : 'bg-transparent py-4'}`}>
+    <header className={`fixed w-full z-50 transition-all duration-500 ${scrolled ? 'bg-black/80 backdrop-blur-md py-2 shadow-lg' : 'bg-transparent py-2 md:py-4'}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          <div className="flex-shrink-0 -ml-10">
-            <a href="#hero" className="logo group relative">
-              <span className="text-2xl font-bold bg-gradient-to-r from-purple-400 via-pink-500 to-blue-400 bg-clip-text text-transparent transition-all duration-300 group-hover:scale-105">
-                SWETA <span className="font-light">PANIGRAHY</span>
+        <div className="flex items-center justify-between h-14 md:h-16">
+          <div className="flex-shrink-0">
+            <a href="#hero" className="logo group relative" onClick={() => mobileMenuOpen && setMobileMenuOpen(false)}>
+              <span className="text-lg sm:text-xl md:text-2xl font-bold bg-gradient-to-r from-purple-400 via-pink-500 to-blue-400 bg-clip-text text-transparent transition-all duration-300 group-hover:scale-105 whitespace-nowrap">
+                <span className="inline">SWETA</span>
+                <span className="font-light"> PANIGRAHY</span>
               </span>
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-purple-400 to-blue-400 transition-all duration-300 group-hover:w-full"></span>
             </a>
           </div>
           
           {/* Mobile menu button */}
-          <div className="md:hidden flex items-center">
+          <div className="md:hidden flex items-center ml-auto">
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
