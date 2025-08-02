@@ -15,14 +15,14 @@ const Hero = () => {
   });
 
   return (
-    <section id="home" className="relative min-h-screen">
+    <section id="home" className="relative overflow-hidden">
       <div className="absolute top-0 left-0 z-10">
         <img src="/images/bg.png" alt="" className="w-full h-auto" />
       </div>
 
       <div className="hero-layout">
         {/* LEFT: Hero Content */}
-        <header className="flex flex-col justify-center md:justify-center pt-20 md:pt-0 h-screen md:h-auto md:w-full w-screen md:px-20 px-5">
+        <header className="flex flex-col justify-center md:w-full w-screen md:px-20 px-5">
           <div className="flex flex-col gap-7">
             <div className="hero-text">
               <h1 className="text-3xl md:text-5xl font-bold mb-3 bg-gradient-to-r from-purple-400 to-pink-600 text-transparent bg-clip-text">
@@ -68,7 +68,7 @@ const Hero = () => {
         </header>
 
         {/* RIGHT: 3D Model or Visual */}
-        <figure className="hidden md:block">
+        <figure>
           <div className="hero-3d-layout">
             <HeroExperience />
           </div>
