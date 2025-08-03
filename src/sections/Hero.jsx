@@ -1,9 +1,11 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
+import { useEffect } from "react";
 
 import Button from "../components/Button";
 import { words } from "../constants";
 import HeroExperience from "../components/HeroModels/HeroExperience";
+import { initSmoothScrolling, smoothScrollTo } from "../utils/smoothScroll";
 
 const Hero = () => {
   useGSAP(() => {
@@ -57,10 +59,10 @@ const Hero = () => {
                 text="See My Work" 
                 className="md:w-80 md:h-16 w-60 h-12"
                 onClick={() => {
-                  const projectsSection = document.getElementById('work');
-                  if (projectsSection) {
-                    projectsSection.scrollIntoView({ behavior: 'smooth' });
-                  }
+                  smoothScrollTo('#work', {
+                    offset: 100, // Adjust this value based on your header height
+                    duration: 1000
+                  });
                 }}
               />
             </div>
