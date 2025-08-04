@@ -63,6 +63,7 @@ const SkillsInfo = [
   {
     title: "Other Skills",
     skills: [
+      { name: "DSA", logo: "/images/code.svg" },
       { name: "Three.js", logo: "/images/logos/three.png" },
       { name: "GSAP", logo: "/images/logos/gsap.png" },
       { name: "Material UI", logo: "/images/logos/materialui.png" },

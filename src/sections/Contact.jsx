@@ -121,6 +121,16 @@ const Contact = () => {
             </div>
           </div>
         </div>
+
+        {/* Footer */}
+        <div className="mt-16 text-center space-y-2">
+          <p className="text-gray-400 text-sm sm:text-base">
+            Built with ❤️ by Sweta
+          </p>
+          <p className="text-gray-500 text-xs sm:text-sm">
+            © 2025 Sweta Panigrahy. All rights reserved.
+          </p>
+        </div>
       </div>
     </section>
   );
