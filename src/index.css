@@ -8,14 +8,18 @@
 }
 
 html {
+  scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
+  -webkit-overflow-scrolling: touch;
   scroll-behavior: smooth;
-  -webkit-overflow-scrolling: touch;
-  overscroll-behavior-y: none;
-  -webkit-overflow-scrolling: touch;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  -ms-overflow-style: -ms-autohiding-scrollbar;
+  overscroll-behavior-y: contain;
+  height: 100%;
 }
 
 body {
@@ -32,22 +36,14 @@ body {
   -webkit-overflow-scrolling: touch;
   scroll-snap-type: y proximity;
   scroll-padding-top: 80px; /* Adjust based on your header height */
-  overscroll-behavior-y: none;
-  -webkit-tap-highlight-color: transparent;
-  -webkit-touch-callout: none;
-  -webkit-text-size-adjust: none;
-  -webkit-font-smoothing: subpixel-antialiased;
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
-  transform: translateZ(0);
-  -webkit-transform: translateZ(0);
-  -webkit-transform-style: preserve-3d;
-  transform-style: preserve-3d;
-  -webkit-transform: translate3d(0,0,0);
-  transform: translate3d(0,0,0);
-  -webkit-perspective: 1000;
-  perspective: 1000;
-  -webkit-font-smoothing: subpixel-antialiased;
+  overscroll-behavior-y: contain;
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+  touch-action: pan-y;
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 
 /* Smooth scrolling for all anchor links */
@@ -64,61 +60,15 @@ section {
   width: 100%;
   min-height: 100vh;
   position: relative;
-  overflow: hidden;
-  -webkit-overflow-scrolling: touch;
-  transform: translateZ(0);
+  overflow: visible;
   -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  will-change: transform;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
-  will-change: transform;
   -webkit-transform-style: preserve-3d;
   transform-style: preserve-3d;
-  -webkit-perspective: 1000px;
-  perspective: 1000px;
-}
-
-/* Mobile-specific optimizations */
-@media (max-width: 768px) {
-  html, body {
-    -webkit-overflow-scrolling: touch;
-    overflow-x: hidden;
-    width: 100%;
-    position: relative;
-    height: 100%;
-  }
-  
-  body {
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-  }
-  
-  /* Improve touch response */
-  * {
-    -webkit-tap-highlight-color: transparent;
-    -webkit-touch-callout: none;
-    -webkit-text-size-adjust: none;
-    -webkit-font-smoothing: subpixel-antialiased;
-  }
-  
-  /* Smooth scrolling for iOS */
-  @supports (-webkit-touch-callout: none) {
-    body {
-      position: fixed;
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-    }
-    
-    #root {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      overflow-y: auto;
-      -webkit-overflow-scrolling: touch;
-    }
-  }
+  -webkit-overflow-scrolling: touch;
 }
 
 /* Fix for mobile scrolling */
