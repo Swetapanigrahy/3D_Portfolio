@@ -14,12 +14,23 @@ html {
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
   -webkit-overflow-scrolling: touch;
-  scroll-behavior: smooth;
   -webkit-tap-highlight-color: transparent;
   -webkit-touch-callout: none;
   -ms-overflow-style: -ms-autohiding-scrollbar;
-  overscroll-behavior-y: contain;
+  overscroll-behavior: none;
   height: 100%;
+  touch-action: pan-y;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+  scroll-snap-type: y mandatory;
+  scroll-padding-top: 80px;
+  -webkit-text-size-adjust: none;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-perspective: 1000;
+  perspective: 1000;
 }
 
 body {
@@ -28,22 +39,27 @@ body {
   margin: 0;
   padding: 0;
   overflow-x: hidden;
+  overflow-y: auto;
   background-color: black;
   color: white;
   font-family: "Mona Sans", sans-serif;
   position: relative;
-  scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch;
   scroll-snap-type: y proximity;
-  scroll-padding-top: 80px; /* Adjust based on your header height */
-  overscroll-behavior-y: contain;
+  scroll-padding-top: 80px;
   -webkit-overflow-scrolling: touch;
-  scroll-behavior: smooth;
   touch-action: pan-y;
   -webkit-text-size-adjust: 100%;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-perspective: 1000;
+  perspective: 1000;
+  overscroll-behavior: none;
 }
 
 /* Smooth scrolling for all anchor links */
