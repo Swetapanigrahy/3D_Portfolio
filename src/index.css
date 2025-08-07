@@ -19,15 +19,20 @@ html {
   -ms-overflow-style: -ms-autohiding-scrollbar;
   overscroll-behavior: none;
   height: 100%;
+  width: 100%;
+  overflow-x: hidden;
   touch-action: pan-y;
-  overflow-y: scroll;
   -webkit-overflow-scrolling: touch;
-  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
   scroll-padding-top: 80px;
   -webkit-text-size-adjust: none;
   -webkit-transform: translateZ(0);
   transform: translateZ(0);
   -webkit-backface-visibility: hidden;
+  -webkit-font-smoothing: subpixel-antialiased;
+  -webkit-perspective: 1000;
+  -webkit-backface-visibility: hidden;
+  -webkit-transform-style: preserve-3d;
   backface-visibility: hidden;
   -webkit-perspective: 1000;
   perspective: 1000;
@@ -696,7 +701,33 @@ form textarea:focus {
 }
 
 /* Responsive adjustments */
+/* Mobile Optimizations */
 @media (max-width: 768px) {
+  html, body {
+    overflow-x: hidden;
+    position: relative;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  body {
+    touch-action: pan-y;
+    -webkit-text-size-adjust: 100%;
+    -webkit-font-smoothing: antialiased;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Improve 3D performance on mobile */
+  canvas {
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    perspective: 1000;
+    -webkit-perspective: 1000;
+  }
+
   .exp-card {
     @apply flex-col !important;
   }
@@ -704,7 +735,6 @@ form textarea:focus {
   .timeline-connector {
     @apply left-8;
   }
-
   .exp-card .absolute {
     @apply left-8;
   }
