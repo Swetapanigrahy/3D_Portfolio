@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import Button from "../components/Button";
 import { words } from "../constants";
 import HeroExperience from "../components/HeroModels/HeroExperience";
-import { initSmoothScrolling, smoothScrollTo } from "../utils/smoothScroll";
+import { smoothScrollTo } from "../utils/smoothScroll";
 
 const Hero = () => {
   useGSAP(() => {
@@ -55,13 +55,13 @@ const Hero = () => {
             </div>
 
             <div className="relative z-10">
-              <Button 
-                text="See My Work" 
+              <Button
+                text="See My Work"
                 className="md:w-80 md:h-16 w-60 h-12"
                 onClick={() => {
-                  smoothScrollTo('#work', {
+                  smoothScrollTo("#work", {
                     offset: 100, // Adjust this value based on your header height
-                    duration: 1000
+                    duration: 1000,
                   });
                 }}
               />

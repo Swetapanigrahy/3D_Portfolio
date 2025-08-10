@@ -33,6 +33,16 @@ html {
   perspective: 1000;
 }
 
+/* Reduce scroll snapping aggressiveness on small screens to avoid jerky scroll */
+@media (max-width: 767px) {
+  html {
+    scroll-snap-type: y proximity;
+  }
+  body {
+    scroll-snap-type: y proximity;
+  }
+}
+
 body {
   width: 100%;
   min-height: 100vh;
@@ -88,7 +98,8 @@ section {
 }
 
 /* Fix for mobile scrolling */
-html, body {
+html,
+body {
   overflow-x: hidden;
   width: 100%;
   min-height: 100vh;
@@ -258,36 +269,12 @@ html, body {
         @apply xl:h-[70vh] md:h-[50vh] h-96 relative;
 
         img {
-          @apply w-full h-full object-cover rounded-xl absolute inset-0;
+          @apply xl:object-top object-top rounded-lg h-full w-full object-cover;
         }
       }
 
-      .text-content {
-        @apply space-y-5 mt-5;
-
-        .badges {
-          @apply flex gap-2 mb-4;
-        }
-
-        h2 {
-          @apply text-2xl md:text-3xl lg:text-4xl font-bold;
-        }
-      }
-    }
-
-    .project-list-wrapper {
-      @apply flex md:flex-row flex-col xl:flex-col gap-10 xl:w-[40%];
-
-      .image-wrapper {
-        @apply xl:h-[37vh] md:h-52 lg:h-72 h-64 relative rounded-xl xl:px-5 2xl:px-12 py-0;
-      }
-
-      img {
-        @apply w-full h-full object-contain rounded-xl;
-      }
-
-      h2 {
-        @apply text-lg md:text-xl lg:text-2xl font-semibold mt-5;
+      .first-project-details {
+        @apply flex flex-col justify-between mt-10;
       }
     }
   }
@@ -633,11 +620,7 @@ form textarea:focus {
   position: absolute;
   width: 200%;
   aspect-ratio: 1;
-  background: radial-gradient(
-    circle,
-    rgba(0, 0, 0, 0.1) 0%,
-    transparent 70%
-  );
+  background: radial-gradient(circle, rgba(0, 0, 0, 0.1) 0%, transparent 70%);
   opacity: 0;
   transition: opacity 0.3s ease;
 }
