@@ -7,6 +7,26 @@ import { words } from "../constants";
 import HeroExperience from "../components/HeroModels/HeroExperience";
 import { smoothScrollTo } from "../utils/smoothScroll";
 
+// Add CSS for smooth scrolling
+const smoothScrollStyles = `
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+`;
+
+// Add smooth scroll styles to the document head
+if (typeof document !== 'undefined') {
+  const style = document.createElement('style');
+  style.textContent = smoothScrollStyles;
+  document.head.appendChild(style);
+}
+
 const Hero = () => {
   useGSAP(() => {
     gsap.fromTo(
@@ -64,6 +84,7 @@ const Hero = () => {
                     duration: 1000,
                   });
                 }}
+                onTouchStart={(e) => e.stopPropagation()} // Prevent touch events from bubbling up
               />
             </div>
           </div>

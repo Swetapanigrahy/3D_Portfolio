@@ -1,42 +1,67 @@
 import { OrbitControls } from "@react-three/drei";
-import { Canvas } from "@react-three/fiber";
+import { Canvas, useFrame } from "@react-three/fiber";
 import { useMediaQuery } from "react-responsive";
+import { useRef } from "react";
+import * as THREE from 'three';
 
 import { Room } from "./Room";
 import HeroLights from "./HeroLights";
 import Particles from "./Particles";
 import { Suspense } from "react";
 
+const AutoRotateModel = () => {
+  const groupRef = useRef();
+  
+  useFrame((state) => {
+    if (groupRef.current) {
+      groupRef.current.rotation.y += 0.002;
+    }
+  });
+
+  return (
+    <group ref={groupRef}>
+      <Room />
+    </group>
+  );
+};
+
 const HeroExperience = () => {
   const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
+  const controls = useRef();
 
   return (
     <Canvas
       camera={{ position: [0, 0, 15], fov: 45 }}
-      style={{ touchAction: "pan-y" }}
+      style={{ touchAction: 'none' }}
+      gl={{ antialias: true, alpha: true }}
+      dpr={Math.min(window.devicePixelRatio, 2)}
+      onCreated={({ gl }) => {
+        gl.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      }}
     >
-      {/* deep blue ambient */}
       <ambientLight intensity={0.2} color="#1a1a40" />
-      {/* Configure OrbitControls to avoid blocking page scroll while keeping rotation */}
+      
       <OrbitControls
+        ref={controls}
         enablePan={false}
         enableZoom={false}
+        enableRotate={!isMobile}
+        autoRotate={false}
+        autoRotateSpeed={1}
+        maxPolarAngle={Math.PI / 1.5}
+        minPolarAngle={Math.PI / 3}
         maxDistance={20}
         minDistance={5}
-        minPolarAngle={Math.PI / 5}
-        maxPolarAngle={Math.PI / 2}
-        touches={isMobile ? { ONE: "none", TWO: "rotate" } : undefined}
       />
 
       <Suspense fallback={null}>
         <HeroLights />
-        <Particles count={300} />
+        <Particles count={isMobile ? 100 : 300} />
         <group
           scale={isMobile ? 0.7 : 1}
           position={[0, -3.5, 0]}
-          rotation={[0, -Math.PI / 4, 0]}
         >
-          <Room />
+          {isMobile ? <AutoRotateModel /> : <Room />}
         </group>
       </Suspense>
     </Canvas>
