@@ -17,7 +17,9 @@ html {
   -webkit-tap-highlight-color: transparent;
   -webkit-touch-callout: none;
   -ms-overflow-style: -ms-autohiding-scrollbar;
-  overscroll-behavior: none;
+  overscroll-behavior-y: contain;
+  scroll-snap-type: y proximity;
+  will-change: scroll-position;
   height: 100%;
   touch-action: pan-y;
   overflow-y: scroll;

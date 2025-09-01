@@ -15,8 +15,13 @@ const isMobileDevice = () => {
          /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 };
 
-// Initialize smooth scrolling
-document.documentElement.style.scrollBehavior = isMobileDevice() ? 'auto' : 'smooth';
+// Initialize smooth scrolling with improved mobile support
+if (typeof window !== 'undefined') {
+  // Add touch-action manipulation for better mobile scroll handling
+  document.documentElement.style.touchAction = 'manipulation';
+  // Use CSS smooth scrolling as base behavior
+  document.documentElement.style.scrollBehavior = 'smooth';
+}
 
 /**
  * Utility function for smooth scrolling to elements
@@ -39,15 +44,32 @@ const smoothScrollTo = (target, { offset = 0, duration = 800 } = {}) => {
   const targetPosition = Math.max(0, targetElement.getBoundingClientRect().top + window.pageYOffset - offset);
   const distance = targetPosition - startPosition;
 
-  // Use native smooth scrolling when available (especially on mobile)
-  if ('scrollBehavior' in document.documentElement.style || isMobileDevice()) {
+  // Enhanced smooth scrolling for all devices
+  if ('scrollBehavior' in document.documentElement.style) {
     return new Promise((resolve) => {
-      window.scrollTo({
-        top: targetPosition,
-        behavior: isMobileDevice() ? 'auto' : 'smooth'
+      // Use requestAnimationFrame for smoother performance
+      requestAnimationFrame(() => {
+        window.scrollTo({
+          top: targetPosition,
+          behavior: 'smooth'
+        });
+        
+        // Use IntersectionObserver to detect when scrolling is complete
+        const observer = new IntersectionObserver((entries) => {
+          if (entries[0].isIntersecting) {
+            observer.disconnect();
+            resolve();
+          }
+        }, { threshold: 0.1 });
+        
+        observer.observe(targetElement);
+        
+        // Fallback timeout
+        setTimeout(() => {
+          observer.disconnect();
+          resolve();
+        }, duration);
       });
-      // Small timeout to ensure the scroll has completed
-      setTimeout(resolve, duration);
     });
   }
 
