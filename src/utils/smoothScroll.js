@@ -15,8 +15,12 @@ const isMobileDevice = () => {
          /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 };
 
-// Initialize smooth scrolling
-document.documentElement.style.scrollBehavior = isMobileDevice() ? 'auto' : 'smooth';
+// Initialize smooth scrolling with optimized behavior for mobile
+document.documentElement.style.scrollBehavior = 'smooth';
+if (isMobileDevice()) {
+  document.documentElement.style.scrollSnapType = 'y proximity';
+  document.documentElement.style.touchAction = 'pan-y';
+}
 
 /**
  * Utility function for smooth scrolling to elements
@@ -39,15 +43,24 @@ const smoothScrollTo = (target, { offset = 0, duration = 800 } = {}) => {
   const targetPosition = Math.max(0, targetElement.getBoundingClientRect().top + window.pageYOffset - offset);
   const distance = targetPosition - startPosition;
 
-  // Use native smooth scrolling when available (especially on mobile)
-  if ('scrollBehavior' in document.documentElement.style || isMobileDevice()) {
-    return new Promise((resolve) => {
-      window.scrollTo({
-        top: targetPosition,
-        behavior: isMobileDevice() ? 'auto' : 'smooth'
-      });
-      // Small timeout to ensure the scroll has completed
-      setTimeout(resolve, duration);
+  // Use optimized scrolling for all devices
+  return new Promise((resolve) => {
+    const onScroll = () => {
+      if (Math.abs(window.pageYOffset - targetPosition) < 2) {
+        window.removeEventListener('scroll', onScroll);
+        resolve();
+      }
+    };
+    
+    window.addEventListener('scroll', onScroll);
+    window.scrollTo({
+      top: targetPosition,
+      behavior: 'smooth'
+    });
+    
+    // Fallback timeout in case scroll event doesn't fire
+    setTimeout(resolve, duration);
+  });
     });
   }
 
