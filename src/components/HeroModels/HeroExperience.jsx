@@ -1,55 +1,48 @@
 import { OrbitControls } from "@react-three/drei";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { useMediaQuery } from "react-responsive";
-import { useRef, useState, useEffect } from "react";
-import * as THREE from 'three';
+import { useRef } from "react";
 
 import { Room } from "./Room";
 import HeroLights from "./HeroLights";
 import Particles from "./Particles";
 import { Suspense } from "react";
 
+const AutoRotateModel = () => {
+  const groupRef = useRef();
+  
+  useFrame(() => {
+    if (groupRef.current) {
+      groupRef.current.rotation.y += 0.002;
+    }
+  });
+
+  return (
+    <group ref={groupRef}>
+      <Room />
+    </group>
+  );
+};
+
 const HeroExperience = () => {
   const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
   const controls = useRef();
-  const [isTouchDevice, setIsTouchDevice] = useState(false);
-
-  // Detect touch device
-  useEffect(() => {
-    const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-    setIsTouchDevice(isTouch);
-  }, []);
 
   return (
     <Canvas
       camera={{ position: [0, 0, 15], fov: 45 }}
-      style={{ touchAction: 'none' }}
-      gl={{ antialias: true, alpha: true }}
-      dpr={Math.min(window.devicePixelRatio, 2)}
-      onCreated={({ gl }) => {
-        gl.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-      }}
+      style={{ touchAction: 'pan-y' }}
     >
       <ambientLight intensity={0.2} color="#1a1a40" />
       
       <OrbitControls
-        ref={controls}
         enablePan={false}
         enableZoom={false}
-        enableRotate={true}
-        autoRotate={!isTouchDevice}
-        autoRotateSpeed={0.5}
-        rotateSpeed={isMobile ? 0.5 : 1}
+        enableRotate={!isMobile}
         maxPolarAngle={Math.PI / 1.5}
         minPolarAngle={Math.PI / 3}
         maxDistance={20}
         minDistance={5}
-        // Enable touch controls
-        touchAction="pan-y"
-        touches={{
-          ONE: isTouchDevice ? 'rotate' : 'none',
-          TWO: 'none'
-        }}
       />
 
       <Suspense fallback={null}>
@@ -59,7 +52,7 @@ const HeroExperience = () => {
           scale={isMobile ? 0.7 : 1}
           position={[0, -3.5, 0]}
         >
-          <Room />
+          {isMobile ? <AutoRotateModel /> : <Room />}
         </group>
       </Suspense>
     </Canvas>
