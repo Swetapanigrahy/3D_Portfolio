@@ -14,16 +14,16 @@ const HeroExperience = () => {
   return (
     <Canvas
       camera={{ position: [0, 0, 15], fov: 45 }}
-      dpr={[1, 1.5]} // ✅ performance optimization
-      gl={{ antialias: false }} // ✅ reduce lag
+      dpr={[1, 1.5]} 
+      gl={{ antialias: false }} 
       style={{
         position: "absolute",
         top: 0,
         left: 0,
-        pointerEvents: "none", // ✅ FIX SCROLL ISSUE
+        pointerEvents: "none", //
       }}
     >
-      {/* ✅ Better lighting */}
+    
       <ambientLight intensity={0.5} />
 
       <HeroLights />
