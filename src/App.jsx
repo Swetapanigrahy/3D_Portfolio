@@ -8,7 +8,7 @@ import Contact from "./sections/Contact.jsx";
 
 function App() {
   return (
-    <div className="bg-black">
+    <div className="relative bg-black">
       <NavBar />
       <main>
         <Hero />
