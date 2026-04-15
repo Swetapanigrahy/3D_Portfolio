@@ -24,16 +24,7 @@ section {
   position: relative;
 }
 
-.hero-layout {
-  position: relative;
-  z-index: 10;
-}
 
-.hero-3d-layout {
-  position: absolute;
-  top: 0;
-  right: 0;
-}
 
 
 
